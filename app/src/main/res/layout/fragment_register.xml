@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_img"
+    tools:context=".FragmentRegister">
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:text="R E G I S T R A S I"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/redpink"
+        android:layout_marginTop="50dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameTextInputLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_regular"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:hint="Nama Lengkap Anda"
+            android:paddingLeft="20dp"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInputLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameTextInputLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_regular"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:hint="Email Anda"
+            android:paddingLeft="20dp"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nomorTeleponTextInputLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailTextInputLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nomor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_regular"
+            android:drawableStart="@drawable/baseline_local_phone_24"
+            android:hint="Nomor Anda"
+            android:paddingLeft="20dp"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:inputType="phone"
+            android:textStyle="bold"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordAkunTextInputLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nomorTeleponTextInputLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_akun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_regular"
+            android:drawableStart="@drawable/baseline_password_24"
+            android:hint="Masukan Password Anda"
+            android:paddingLeft="20dp"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:textStyle="bold"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordUlangTextInputLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordAkunTextInputLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_ulang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_regular"
+            android:drawableStart="@drawable/baseline_password_24"
+            android:hint="Masukan Ulang Password Anda"
+            android:paddingLeft="20dp"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:textStyle="bold"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <CheckBox
+        android:id="@+id/checkbox_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordUlangTextInputLayout"
+        android:fontFamily="@font/lato_bold"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:text="By checking the box you agree to our Terms and Conditions."
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="R E G I S T E R"
+        android:fontFamily="@font/lato_bold"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/round_opacity"
+        android:layout_below="@+id/checkbox_remember"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:backgroundTint="#D54D35"
+        tools:ignore="RtHardcoded" />
+
+    <TextView
+        android:id="@+id/registrasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_register"
+        android:text="Already Have an Account? Login"
+        android:textSize="12sp"
+        android:fontFamily="@font/lato_bold"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white" />
+</RelativeLayout>

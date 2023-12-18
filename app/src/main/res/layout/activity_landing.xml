@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/landing"/>
+
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome To"
+        android:fontFamily="@font/lato_bold"
+        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/white"
+        tools:ignore="MissingConstraints"/>
+
+
+    <TextView
+        android:id="@+id/name_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TicketFlick"
+        android:fontFamily="@font/lato_bold"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="30dp"
+        android:textColor="#FE724C"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:text="Get Starteed"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="@font/lato_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/round_opacity"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+
+    <!-- CardView to wrap the movie information -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/movie_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/cardViewPoster"
+        app:layout_constraintTop_toTopOf="@+id/cardViewPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewPoster"
+        android:background="@drawable/rounded_corner"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="1dp">
+
+        <!-- Movie Information -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Title"
+                android:textSize="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:textColor="@color/maroon"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/textViewDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Duration"
+                android:textSize="15sp"
+                android:textColor="#9CA3AF"
+                android:textStyle="bold"
+                android:fontFamily="@font/lato_bolditalic"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/textViewGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Genre"
+                android:fontFamily="@font/lato_bolditalic"
+                android:textColor="#9CA3AF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp" />
+
+            <!-- Line Divider -->
+            <View
+                android:id="@+id/viewDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/black" />
+
+            <!-- Buttons (Hapus and Edit) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/buttonEdit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/edit"
+                    android:text="Edit" />
+
+                <Button
+                    android:id="@+id/buttonHapus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/trash"
+                    android:backgroundTint="@color/redpink"
+                     />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Image View for the movie poster -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="8dp"
+        tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:id="@+id/imageViewPoster"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_poster"
+        tools:ignore="MissingConstraints" />
+
+</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
