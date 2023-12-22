@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Item menu untuk navigasi ke halaman Movie -->
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Movie" />
+
+    <!-- Item menu untuk navigasi ke halaman Favorite -->
     <item
         android:id="@+id/nav_favor"
         android:icon="@drawable/baseline_favorite_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Favorite" />
+
+    <!-- Item menu untuk navigasi ke halaman Profile -->
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/baseline_person_24"

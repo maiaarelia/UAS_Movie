@@ -17,90 +17,62 @@ import com.google.firebase.storage.FirebaseStorage
 interface MovieItemClickListener {
     fun onEditButtonClick(movie: MovieAdminData)
     fun onDeleteButtonClick(movie: MovieAdminData)
-
 }
 
-
 class AdminMovieAdapter(
+    private val MovieAdmin: ArrayList<MovieAdminData>,  // Daftar film yang akan ditampilkan
+    private val clickListener: MovieItemClickListener  // Antarmuka untuk menangani klik pada item film
+) : RecyclerView.Adapter<AdminMovieAdapter.MovieAdminViewHolder>() {
 
-//
-    private val MovieAdmin: ArrayList<MovieAdminData>,
-    private val clickListener: MovieItemClickListener
-    ):
-    RecyclerView.Adapter<AdminMovieAdapter.MovieAdminViewHolder>()
-    {
-
-        class MovieAdminViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
-            val title: TextView = itemView.findViewById(R.id.textViewTitle)
-            val genre: TextView = itemView.findViewById(R.id.textViewGenre)
-            val duration: TextView = itemView.findViewById(R.id.textViewDuration)
-            val image: ImageView = itemView.findViewById(R.id.imageViewPoster)
-            val buttonEdit : Button = itemView.findViewById(R.id.buttonEdit)
-            val buttonHapus : Button = itemView.findViewById(R.id.buttonHapus)
-        }
-
-
-        override fun onBindViewHolder(holder: MovieAdminViewHolder, position: Int) {
-            val currentItem = MovieAdmin[position]
-            currentItem.imageUrl?.let { Log.d("ImageURL", it) }
-            holder.title.setText(currentItem.title)
-            holder.genre.setText(currentItem.genre)
-            holder.duration.setText(currentItem.duration)
-
-            // Use Glide or Picasso to load the image from the URL into the ImageView
-
-                Glide.with(holder.itemView.context)
-                    .load(currentItem.imageUrl)
-                    .into(holder.image)
-
-
-            // Set click listeners for buttons
-            holder.buttonEdit.setOnClickListener {
-                clickListener.onEditButtonClick(currentItem)
-            }
-
-            holder.buttonHapus.setOnClickListener {
-                clickListener.onDeleteButtonClick(currentItem)
-            }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdminViewHolder {
-            val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.movie_item_admin, parent, false)
-            return MovieAdminViewHolder(itemView)
-        }
-
-        override fun getItemCount(): Int {
-            return MovieAdmin.size
-        }
-
-
-//        private fun deleteItemFromDatabase(imgId: String) {
-//            // Reference to the Firebase Storage
-//            val storageReference = FirebaseStorage.getInstance().getReference("images").child(imgId)
-//
-//            // Delete the image from Firebase Storage
-//            storageReference.delete().addOnSuccessListener {
-//                // Image deleted successfully, now delete the corresponding data from the Realtime Database
-//                val database = FirebaseDatabase.getInstance().getReference("Film")
-//                database.child(imgId).removeValue()
-//                    .addOnCompleteListener {
-//                        // Handle success if needed
-//                    }
-//                    .addOnFailureListener {
-//                        // Handle failure if needed
-//                    }
-//            }.addOnFailureListener {
-//                // Handle failure if the image deletion fails
-//            }
-//        }
-
-        fun setData(dataMovie: List<MovieAdminData>){
-            MovieAdmin.clear()
-            MovieAdmin.addAll(dataMovie)
-        }
-
+    // ViewHolder untuk menahan tampilan item film
+    class MovieAdminViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val title: TextView = itemView.findViewById(R.id.textViewTitle)      // Judul film
+        val genre: TextView = itemView.findViewById(R.id.textViewGenre)      // Genre film
+        val duration: TextView = itemView.findViewById(R.id.textViewDuration)  // Durasi film
+        val image: ImageView = itemView.findViewById(R.id.imageViewPoster)  // Gambar poster film
+        val buttonEdit: Button = itemView.findViewById(R.id.buttonEdit)      // Tombol Edit
+        val buttonHapus: Button = itemView.findViewById(R.id.buttonHapus)    // Tombol Hapus
     }
 
+    // Dipanggil saat RecyclerView perlu tampilan baru
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdminViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.movie_item_admin, parent, false)
+        return MovieAdminViewHolder(itemView)
+    }
 
+    // Dipanggil untuk menetapkan data pada tampilan item
+    override fun onBindViewHolder(holder: MovieAdminViewHolder, position: Int) {
+        val currentItem = MovieAdmin[position]
+        currentItem.imageUrl?.let { Log.d("ImageURL", it) }  // Log URL gambar (jika ada)
+        holder.title.text = currentItem.title  // Set judul film
+        holder.genre.text = currentItem.genre  // Set genre film
+        holder.duration.text = currentItem.duration  // Set durasi film
 
+        // Gunakan Glide untuk memuat gambar dari URL ke ImageView
+        Glide.with(holder.itemView.context)
+            .load(currentItem.imageUrl)
+            .into(holder.image)
+
+        // Atur pendengar klik untuk tombol Edit
+        holder.buttonEdit.setOnClickListener {
+            clickListener.onEditButtonClick(currentItem)
+        }
+
+        // Atur pendengar klik untuk tombol Hapus
+        holder.buttonHapus.setOnClickListener {
+            clickListener.onDeleteButtonClick(currentItem)
+        }
+    }
+
+    // Mengembalikan jumlah item dalam daftar
+    override fun getItemCount(): Int {
+        return MovieAdmin.size
+    }
+
+    // Mengganti data yang ada dengan data baru
+    fun setData(dataMovie: List<MovieAdminData>) {
+        MovieAdmin.clear()
+        MovieAdmin.addAll(dataMovie)
+    }
+}

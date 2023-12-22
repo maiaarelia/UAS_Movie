@@ -14,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/BottomNav"
         app:layout_constraintTop_toTopOf="parent">
-
     </FrameLayout>
 
 
@@ -28,7 +27,6 @@
         app:layout_constraintStart_toEndOf="parent"
         app:menu="@menu/menu_bottom"
         tools:ignore="MissingConstraints">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
@@ -38,6 +36,15 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         tools:ignore="MissingConstraints" />
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_movie"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:listitem="@layout/movie_item_user"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

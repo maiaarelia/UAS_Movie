@@ -7,6 +7,7 @@
     android:background="@drawable/login_img"
     tools:context=".FragmentRegister">
 
+    <!-- Title TextView for registration -->
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -19,6 +20,7 @@
         android:textColor="@color/redpink"
         android:layout_marginTop="50dp" />
 
+    <!-- TextInputLayout for user's full name -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameTextInputLayout"
         android:layout_width="350dp"
@@ -43,6 +45,7 @@
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TextInputLayout for user's email -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTextInputLayout"
         android:layout_width="350dp"
@@ -67,6 +70,7 @@
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TextInputLayout for user's phone number -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nomorTeleponTextInputLayout"
         android:layout_width="350dp"
@@ -91,6 +95,7 @@
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TextInputLayout for user's password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordAkunTextInputLayout"
         android:layout_width="350dp"
@@ -116,6 +121,7 @@
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TextInputLayout for user's password confirmation -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordUlangTextInputLayout"
         android:layout_width="350dp"
@@ -141,7 +147,7 @@
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <!-- Checkbox for terms and conditions agreement -->
     <CheckBox
         android:id="@+id/checkbox_remember"
         android:layout_width="wrap_content"
@@ -156,6 +162,7 @@
         android:textStyle="bold"
         android:textColor="@color/white" />
 
+    <!-- Button for user registration -->
     <Button
         android:id="@+id/button_register"
         android:layout_width="350dp"
@@ -170,6 +177,7 @@
         android:backgroundTint="#D54D35"
         tools:ignore="RtHardcoded" />
 
+    <!-- TextView for existing users to navigate to the login page -->
     <TextView
         android:id="@+id/registrasi"
         android:layout_width="wrap_content"

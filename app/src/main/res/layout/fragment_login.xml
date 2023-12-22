@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- RelativeLayout sebagai wadah utama layout -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_img"
-    tools:context=".FragmentLogin">
+    tools:context=".FragmentLogin"
+    android:id="@+id/fragmentLogin">
 
-
+    <!-- ImageView untuk menampilkan logo splash -->
     <ImageView
         android:id="@+id/logo_splash"
         android:layout_width="match_parent"
@@ -16,6 +19,7 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo_login" />
 
+    <!-- TextView untuk menampilkan teks "LOGIN" -->
     <TextView
         android:id="@+id/login_text_view"
         android:layout_below="@id/logo_splash"
@@ -29,6 +33,7 @@
         android:textStyle="bold"
         android:layout_marginTop="10dp" />
 
+    <!-- TextInputLayout dan TextInputEditText untuk input email -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTextInputLayout"
         android:layout_width="350dp"
@@ -44,7 +49,7 @@
             android:textColor="@color/white"
             android:fontFamily="@font/lato_regular"
             android:drawableStart="@drawable/baseline_email_24"
-            android:hint="Masukan Email Anda"
+            android:hint="Masukkan Email Anda"
             android:paddingLeft="20dp"
             android:drawablePadding="10dp"
             android:textSize="15sp"
@@ -53,6 +58,7 @@
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TextInputLayout dan TextInputEditText untuk input password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTextInputLayout"
         android:layout_width="350dp"
@@ -69,7 +75,7 @@
             android:textColor="@color/white"
             android:fontFamily="@font/lato_regular"
             android:drawableStart="@drawable/baseline_password_24"
-            android:hint="Masukan Password Anda"
+            android:hint="Masukkan Password Anda"
             android:paddingLeft="20dp"
             android:drawablePadding="10dp"
             android:textSize="15sp"
@@ -78,6 +84,7 @@
             android:textColorHint="#FFFFFF"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- CheckBox untuk "Remember Me" -->
     <CheckBox
         android:id="@+id/checkbox_remember"
         android:layout_width="wrap_content"
@@ -91,6 +98,7 @@
         android:textStyle="bold"
         android:textColor="@color/white"/>
 
+    <!-- TextView untuk "Forgot Password?" -->
     <TextView
         android:id="@+id/forgot_pass"
         android:layout_width="wrap_content"
@@ -104,7 +112,7 @@
         android:textStyle="bold"
         android:textColor="@color/white"/>
 
-
+    <!-- Button untuk tombol login -->
     <Button
         android:id="@+id/button_login"
         android:layout_width="350dp"
@@ -118,6 +126,7 @@
         android:textSize="20sp"
         tools:ignore="RtHardcoded"/>
 
+    <!-- TextView untuk registrasi -->
     <TextView
         android:id="@+id/registrasi"
         android:layout_width="wrap_content"
@@ -130,5 +139,4 @@
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"/>
-
 </RelativeLayout>

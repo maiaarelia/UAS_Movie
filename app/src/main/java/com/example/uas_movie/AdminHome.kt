@@ -1,108 +1,124 @@
 package com.example.uas_movie
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uas_movie.databinding.ActivityAdminHomeBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
-class AdminHome : AppCompatActivity(), MovieItemClickListener  {
+class AdminHome : AppCompatActivity(), MovieItemClickListener {
     private lateinit var binding: ActivityAdminHomeBinding
     private lateinit var itemAdapterMovie: AdminMovieAdapter
     private lateinit var itemListMovie: ArrayList<MovieAdminData>
     private lateinit var recyclerViewItem : RecyclerView
     private lateinit var database : DatabaseReference
-    private lateinit var sharedPreferences: SharedPreferences
-    private  val firestore = FirebaseFirestore.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
     private val moviesCollection = firestore.collection("Movie")
-
+    private lateinit var prefManager: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityAdminHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Inisialisasi RecyclerView
         recyclerViewItem = binding.rvMovie
         recyclerViewItem.setHasFixedSize(true)
         recyclerViewItem.layoutManager = LinearLayoutManager(this)
 
+        // Inisialisasi ArrayList dan Adapter untuk RecyclerView
         itemListMovie = arrayListOf()
         itemAdapterMovie = AdminMovieAdapter(itemListMovie, this)
         recyclerViewItem.adapter = itemAdapterMovie
 
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // Inisialisasi PrefManager
+        prefManager = PrefManager.getInstance(this@AdminHome)
 
-        binding.fabTambah.setOnClickListener{
+        // Set onClickListener untuk FloatingActionButton (tambah movie)
+        binding.fabTambah.setOnClickListener {
             startActivity(Intent(this, AdminAddMovie::class.java))
         }
 
-        database = FirebaseDatabase.getInstance().getReference("Movie")
+        // Ambil data movie dari Firestore
+        moviesCollection.get().addOnSuccessListener { querySnapshots ->
+            val movies = ArrayList<MovieAdminData>()
 
-
-        moviesCollection.get().addOnSuccessListener {
-                querySnapshots -> val movies = ArrayList<MovieAdminData>()
-
-            for (doc in querySnapshots){
+            for (doc in querySnapshots) {
                 val movie = doc.toObject(MovieAdminData::class.java)
                 movies.add(movie)
-
-
             }
+
+            // Set data ke dalam adapter dan refresh tampilan RecyclerView
             itemAdapterMovie.setData(movies)
             itemAdapterMovie.notifyDataSetChanged()
-
         }
 
-
-        // Inisialisasi FloatingActionButton
-        val fabTambah: FloatingActionButton = findViewById(R.id.fab_tambah)
-
-        // Menambahkan listener untuk FloatingActionButton
-        fabTambah.setOnClickListener {
-            // Intent untuk memulai aktivitas tambah movie
-            val intent = Intent(this, AdminAddMovie::class.java)
-            startActivity(intent)
-        }
+        // Set Toolbar sebagai ActionBar
         setSupportActionBar(findViewById(R.id.toolbar))
     }
 
-
+    // Implementasi interface MovieItemClickListener untuk meng-handle event klik pada item RecyclerView
     override fun onEditButtonClick(movie: MovieAdminData) {
-        // Handle Edit button click, navigate to AdminAddMovie with movie details
-        val intent = Intent(this, AdminAddMovie::class.java)
-        intent.putExtra("selectedMovie", movie) // Pass movie details to AdminAddMovie
+        val intent = Intent(this, AdminEditMovie::class.java)
+        intent.putExtra("selectedMovie", movie)
         startActivity(intent)
     }
 
+    // Implementasi interface MovieItemClickListener untuk meng-handle event klik tombol delete pada item RecyclerView
     override fun onDeleteButtonClick(movie: MovieAdminData) {
-        // Handle Delete button click (if needed)
+        // Munculkan dialog konfirmasi sebelum menghapus
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Are you sure you want to delete this movie?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { _, _ ->
+                deleteMovieFromDatabase(movie)
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Delete Movie")
+        alert.show()
     }
 
+    // Hapus data movie dari Firestore
+    private fun deleteMovieFromDatabase(movie: MovieAdminData) {
+        moviesCollection.document(movie.id)
+            .delete()
+            .addOnSuccessListener {
+                // Hapus item dari RecyclerView dan refresh tampilan
+                itemListMovie.remove(movie)
+                itemAdapterMovie.notifyDataSetChanged()
+                Toast.makeText(this, "Movie deleted successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to delete movie", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // Inflate menu dan tambahkan ke ActionBar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_movie_admin, menu)
-
         return true
     }
 
+    // Handle item yang dipilih pada menu ActionBar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_logout -> {
+                // Logout dan kembalikan ke halaman login
                 FirebaseAuth.getInstance().signOut()
-                saveLoginStatus(false)
-
-                // Add any additional logic, such as returning to the login screen
-                val intent = Intent(this, LoginRegisterTabLayout::class.java)
+                prefManager.setLoggedIn(false)
+                val intent = Intent(this@AdminHome, LoginRegisterTabLayout::class.java)
                 startActivity(intent)
                 finish()
                 return true
@@ -110,16 +126,4 @@ class AdminHome : AppCompatActivity(), MovieItemClickListener  {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-
-
-
-    private fun saveLoginStatus(isLoggedIn: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", isLoggedIn)
-        editor.clear()
-        editor.apply()
-    }
-
-
 }
-

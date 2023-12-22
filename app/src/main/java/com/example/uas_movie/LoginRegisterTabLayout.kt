@@ -10,24 +10,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class LoginRegisterTabLayout : AppCompatActivity() {
     private lateinit var binding: ActivityLoginRegisterTabLayoutBinding
-    private lateinit var sharedPreferences: SharedPreferences
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginRegisterTabLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-
-        // Check login status
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
-        if (isLoggedIn) {
-            val intent = Intent(this, AdminHome::class.java)
-            startActivity(intent)
-            finish()
-        } else {
             val adapter =  FragmentLoginRegisterAdapter(this)
             binding.viewPagerLogreg.adapter = adapter
             TabLayoutMediator(binding.tabLayoutLogreg, binding.viewPagerLogreg) { tab, position ->
@@ -38,5 +26,5 @@ class LoginRegisterTabLayout : AppCompatActivity() {
                 }
             }.attach()
         }
-    }
+//    }
 }

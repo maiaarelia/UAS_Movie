@@ -22,7 +22,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Movie"
+        android:text="Tambah Movie"
         android:textSize="20sp"
         android:textStyle="bold"
         android:fontFamily="@font/lato_bold"
@@ -246,7 +246,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="585dp"
             android:layout_marginStart="35dp"
-            android:text="S U B M I T"
+            android:text="U P D A T E"
             app:layout_constraintTop_toBottomOf="@+id/imageViewMovie"
             app:layout_constraintStart_toStartOf="parent"/>
     </androidx.cardview.widget.CardView>

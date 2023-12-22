@@ -1,59 +1,87 @@
 package com.example.uas_movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.uas_movie.databinding.FragmentUserProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UserProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    // Inisialisasi variabel binding untuk menghubungkan dengan layout XML menggunakan View Binding
+    private lateinit var binding: FragmentUserProfileBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // Inisialisasi objek FirebaseAuth untuk mengelola otentikasi pengguna
+    private lateinit var auth: FirebaseAuth
 
+    // Inisialisasi objek FirebaseFirestore untuk mengakses database Firestore
+    private lateinit var firestore: FirebaseFirestore
+
+    // Metode yang dipanggil saat tampilan fragment dibuat
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+        // Menghubungkan layout FragmentUserProfileBinding dengan tampilan fragment
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+
+        // Initialize FirebaseAuth
+        auth = FirebaseAuth.getInstance()
+
+        // Initialize FirebaseFirestore
+        firestore = FirebaseFirestore.getInstance()
+
+        // Memuat dan menampilkan data pengguna
+        loadUserData()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    // Fungsi untuk memuat data pengguna dari Firestore dan menampilkannya di tampilan
+    private fun loadUserData() {
+        // Mendapatkan alamat email pengguna yang saat ini masuk
+        val userEmail = auth.currentUser?.email
+        userEmail?.let { email ->
+            // Query Firestore untuk mencari data pengguna berdasarkan alamat email
+            firestore.collection("users")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    // Jika ditemukan data pengguna
+                    if (!documents.isEmpty) {
+                        // Mengambil dokumen pertama (asumsi hanya ada satu)
+                        val document = documents.documents[0]
+                        // Mengonversi dokumen ke objek User
+                        val account = document.toObject(User::class.java)
+                        account?.let {
+                            // Menetapkan nilai-nilai ke TextView yang sesuai
+                            binding.textViewName.text = "${it.username}"
+                            binding.textViewEmail.text = "${it.email}"
+                            binding.textViewPhone.text = "${it.nomor_telp}"
+                        }
+                    } else {
+                        // Menampilkan pesan jika data pengguna tidak ditemukan
+                        Toast.makeText(
+                            requireContext(),
+                            "User data not found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.e("UserProfile", "User data not found")
+                    }
                 }
-            }
+                .addOnFailureListener { e ->
+                    // Menampilkan pesan jika terjadi kesalahan saat memuat data pengguna
+                    Toast.makeText(
+                        requireContext(),
+                        "Error loading user data: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.e("UserProfile", "Error loading user data", e)
+                }
+        }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
     android:background="@drawable/bg_movie"
     tools:context=".AdminHome">
 
+    <!-- Toolbar untuk menampilkan judul dan fungsi navigasi -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,6 +16,7 @@
         android:background="?attr/colorPrimary"
         tools:ignore="MissingConstraints" />
 
+    <!-- RecyclerView untuk menampilkan daftar film -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movie"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -22,10 +25,12 @@
         tools:listitem="@layout/movie_item_admin"
         tools:ignore="MissingConstraints" />
 
+    <!-- RelativeLayout sebagai wadah untuk FloatingActionButton -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- FloatingActionButton -->
+
+        <!-- FloatingActionButton untuk menambahkan film baru -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_tambah"
             android:layout_width="wrap_content"

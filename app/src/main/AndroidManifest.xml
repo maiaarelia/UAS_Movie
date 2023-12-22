@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +17,7 @@
         android:theme="@style/Theme.UAS_Movie"
         tools:targetApi="31">
         <activity
-            android:name=".AdminEditMovie"
+            android:name=".DetailMovie"
             android:exported="false" />
         <activity
             android:name=".UserHome"
@@ -28,6 +30,9 @@
             android:exported="false" />
         <activity
             android:name=".AdminAddMovie"
+            android:exported="false" />
+        <activity
+            android:name=".AdminEditMovie"
             android:exported="false" />
         <activity
             android:name=".AdminHome"
